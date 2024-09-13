@@ -1,0 +1,161 @@
+/* Button.module.scss */
+
+[data-theme="dark"] {
+  --primary-color: rgb(230, 230, 230);
+  --background-color: rgb(23, 23, 23);
+  --color-blue: rgb(67, 56, 202);
+  --color-gray: #E5E5E5;
+  --secondary-hover: rgb(23, 23, 23);
+  --disabled: rgb(40,40,40);
+}
+
+[data-theme="light"] {
+  --primary-color: rgb(23, 23, 23);
+  --background-color: rgb(230, 230, 230);
+  --color-blue: rgb(67, 56, 202);
+  --color-gray: #E5E5E5;
+  --secondary-hover: #FAFAFA;
+  --disabled: #F5F5F5;
+}
+
+$color_blue: rgb(67, 56, 202);
+$color_red: rgb(220, 38, 38);
+$color_gray: rgb(230, 230, 230);
+$color_black: rgb(23, 23, 23);
+
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  align-items: center;
+  display: inline-flex;
+  column-gap: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.25s;
+}
+
+button svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+.primary {
+  background-color: var(--color-blue);
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: $color_gray;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  &:hover, &:focus{
+    background-color: #3730A3;
+  }
+  &:disabled {
+    background-color: var(--disabled);
+    color: #A3A3A3;
+  }
+}
+
+.secondary {
+  border: 0.5px solid var(--color-gray);
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: var(--primary-color);
+  &:hover, &:focus {
+    background-color: var(--secondary-hover)
+  }
+  &:disabled {
+    background-color: var(--disabled);
+    border: none;
+    color: #A3A3A3;
+  }
+}
+
+.tertiary {
+  color: var(--color-blue);
+  &:hover, &:focus {
+    background-color: #FAFAFA;
+  }
+  &:disabled {
+    background-color: transparent;
+    color: #A3A3A3;
+  }
+}
+
+.destructive {
+  background-color: $color_red;
+  color: white;
+  &:hover, &:focus {
+    background-color: #B91C1C;
+  } 
+  &:disabled {
+    background-color: transparent;
+    color: #A3A3A3;
+  }
+}
+
+.link-primary {
+  color: var(--color-blue);
+  &:hover, &:focus {
+    text-decoration: underline;
+  } 
+  &:disabled {
+    background-color: transparent;
+    color: #A3A3A3;
+    text-decoration: none;
+  }
+}
+
+.link-secondary {
+  color: var(--primary-color);
+  &:hover, &:focus {
+    text-decoration: underline;
+  } 
+  &:disabled {
+    background-color: transparent;
+    color: #A3A3A3;
+    text-decoration: none;
+  }
+}
+
+.disabled {
+  background-color: lightgray;
+  color: darkgray;
+  cursor: not-allowed;
+}
+
+.large {
+  font-size: 18px;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.medium {
+  font-size: 14px;
+  min-height: 40px;
+}
+
+.large {
+  font-size: 16px;
+  min-height: 44px;
+}
+
+.xlarge {
+  font-size: 16px;
+  min-height: 48px;
+}
+
+.x2large {
+  font-size: 18px;
+  min-height: 60px;
+}
