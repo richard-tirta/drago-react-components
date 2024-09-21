@@ -1,9 +1,10 @@
 
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
+// import reactLogo from './assets/react.svg'
 import './App.css'
-import Button from './components/buttons/Button'
-import ButtonIndex from './components/buttons/ButtonIndex';
+import Button from './components/button/Button'
+import ButtonIndex from './components/button/ButtonIndex';
+import InputIndex from './components/input/InputIndex';
 
 function App() {
 
@@ -39,11 +40,15 @@ function App() {
             <li>
               <Button onClick={() => handleNavigation('/buttons')}>Buttons</Button>
             </li>
+            <li>
+              <Button onClick={() => handleNavigation('/inputs')}>Inputs</Button>
+            </li>
           </ul>
         </nav>
       </div>
       <Routes>
         <Route path="/buttons" element={<ButtonIndex />} />
+        <Route path="/inputs" element={<InputIndex />} />
       </Routes>
     </>
   )
