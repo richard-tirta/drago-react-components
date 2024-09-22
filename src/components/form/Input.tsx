@@ -2,6 +2,7 @@
 import React, { FC, useState } from 'react'
 import styles from './Input.module.scss'
 import PostInputIcon from './PostInputIcon';
+import useInput from './use-input';
 
 interface InputProps {
   type?: 'text' | 'email' | 'number' | 'date' | 'text-area' | 'password' | 'dropdown';
@@ -13,9 +14,12 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   aria?: string;
-  hint?: 'string';
-  error?: 'string';
+  hint?: string;
+  error?: string;
   isError?: boolean;
+  reset?: () => void;
+  isValid?: boolean;
+  required?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -23,17 +27,43 @@ const Input: FC<InputProps> = ({
   size = 'medium',
   name = '',
   disabled = false,
-  onChange,
-  onFocus,
   placeholder = '',
   label = '',
   aria = 'input',
-  hint = 'Hint',
+  hint = '',
   error = 'Error',
   isError = false,
+  reset,
+  isValid = true,
+  required = false,
 }) => {
 
+  const isEmail = (value: string) => value.includes('@');
+  const alphabetOnly = (value: string) => /^[a-zA-Z() ]+$/.test(value);
+  const numbersOnly = (value: string) => /^[0-9() -.]+$/.test(value);
+
   const [inputType, setInputType] = useState(type);
+  const [showHint, setShowHint] = useState(type !== 'password' ? false : true);
+
+  const handlePasswordVisibility = () => {
+    setInputType(inputType === 'password' ? 'text' : 'password');
+  }
+
+  const handleHintClick = () => {
+    console.log('Hint clicked');
+    if (hint) {
+      setShowHint(!showHint);
+    }
+  }
+
+  const {
+    value,
+    isValid: valueIsValid,
+    hasError: valueHasError,
+    valueChangeHandler,
+    inputBlurHandler,
+    inputReset,
+  } = useInput(isEmail);
 
   const inputClassNames = [
     styles.input,
@@ -41,24 +71,13 @@ const Input: FC<InputProps> = ({
     styles[size],
     disabled ? styles.disabled : '',
     inputType === 'email' ? styles.icon : '',
+    valueHasError ? styles.error : '',
   ].join(' ');
-
-  const postIconClassNames = [
-    styles.input__posticon,
-    styles[size],
-    disabled ? styles.disabled : '',
-  ].join(' ');
-
-  const handlePasswordVisibility = () => {
-    console.log('hello');
-    setInputType(inputType === 'password' ? 'text' : 'password');
-   }
-
 
   return (
     <div className={styles.input__module}>
       <label htmlFor={`${aria}Label`}>
-        {label}
+        {label}{required ? '*' : ''}
       </label>
       {
         inputType === 'email'
@@ -71,14 +90,19 @@ const Input: FC<InputProps> = ({
         type={inputType}
         className={inputClassNames}
         placeholder={placeholder}
-        onChange={onChange}
-        onFocus={onFocus}
+        onChange={valueChangeHandler}
+        onBlur={inputBlurHandler}
         aria-labelledby={`${aria}Label`}
         aria-describedby={`${aria}Hint`}
+        value={value}
+        required={required}
       />
-      <PostInputIcon inputType={type} size={size} disabled={disabled} onClick={handlePasswordVisibility}/>
+      <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
       <p id={`${aria}Hint`} className={styles.input__hint}>
-        {isError ? error : hint}
+        {isError
+          ? error
+          : showHint ? hint : ''
+        }
       </p>
     </div>
   )

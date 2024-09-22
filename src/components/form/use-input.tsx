@@ -1,6 +1,6 @@
 // Custom hooks for input component
 
-import { useReducer } from 'react';
+import { useState, useReducer } from 'react';
 
 const initialInputState = {
   value: '',
@@ -30,10 +30,15 @@ const inputStateReducer = (state: InputState, action: InputAction): InputState =
   return initialInputState;
 };
 
-const useInput = (validateValue: (value: string) => boolean) => { 
+const useInput = (validateValue: (value: string) => boolean) => {
   const [inputState, dispatch] = useReducer(inputStateReducer, initialInputState);
 
-  const valueIsValid = validateValue(inputState.value);
+  let valueIsValid = false;
+
+  if (typeof validateValue === 'function') {
+    valueIsValid = validateValue(inputState.value);
+  }
+
   const hasError = !valueIsValid && inputState.isTouched;
 
   const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +49,7 @@ const useInput = (validateValue: (value: string) => boolean) => {
     dispatch({ type: 'BLUR' });
   };
 
-  const reset = () => {
+  const inputReset = () => {
     dispatch({ type: 'RESET' });
   };
 
@@ -54,7 +59,7 @@ const useInput = (validateValue: (value: string) => boolean) => {
     hasError,
     valueChangeHandler,
     inputBlurHandler,
-    reset,
+    inputReset,
   };
 };
 

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import './App.css'
 import Button from './components/button/Button'
 import ButtonIndex from './components/button/ButtonIndex';
-import InputIndex from './components/input/InputIndex';
+import InputIndex from './components/form/InputIndex';
 
 function App() {
 

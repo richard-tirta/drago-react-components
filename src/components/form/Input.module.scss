@@ -67,6 +67,7 @@ input {
 .input__hint {
   margin-top: 0;
   margin-bottom: 30px;
+  min-height: 24px;
 }
 
 .input__preicon {
@@ -81,7 +82,7 @@ input {
   margin-right: 10px;
   right: 0;
   transform: translateY(130%);
-  cursor: help;
+  cursor: pointer;
 }
 
 .disabled {
