@@ -46,12 +46,12 @@ const TextArea: FC<TextAreaProps> = ({
   }
 
   const inputClassNames = [
-    styles.input,
+    styles.textarea,
     disabled ? styles.disabled : '',
   ].join(' ');
 
   const postIconClassNames = [
-    styles.input__textarea_hint,
+    styles.textarea__hint,
     disabled ? styles.disabled : '',
   ].join(' ');
 

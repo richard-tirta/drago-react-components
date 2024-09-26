@@ -88,20 +88,25 @@ const InputIndex = () => {
           <div className={styles.container__inputs}>
             <Input 
               label={"Text"} 
-              placeholder={'Type text'}
+              placeholder={'Type text small'}
               name={'text'}
+              size={'small'}
             />
             <TextArea
               label={"Text Area"} 
               placeholder={'Type text area'}
               name={'text-area'}
+              hint={'This is text area'}
             />
             <DropDown
+              label={"Dropdown"}
+              option={['Option 1', 'Option 2', 'Option 3']}
             />
              <Input 
               label={"Disabled"} 
               placeholder={'This type is disabled'}
               name={'disabled-text'}
+              size={'large'}
               disabled={true}
             />
           </div>

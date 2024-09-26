@@ -70,8 +70,6 @@ const Input: FC<InputProps> = ({
     valueHasError ? styles.error : '',
   ].join(' ');
 
-  console.log('hmmm', valueHasError)
-
   return (
     <div className={styles.input__module}>
       <label htmlFor={`${aria}Label`}>
