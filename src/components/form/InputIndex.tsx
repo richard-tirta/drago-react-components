@@ -1,6 +1,7 @@
 
 import Input from './Input'
 import TextArea from './TextArea'
+import DropDown from './DropDown'
 import styles from './InputIndex.module.scss'
 
 const InputIndex = () => {
@@ -28,6 +29,7 @@ const InputIndex = () => {
           <div className={styles.container__inputs}>
             
             <Input 
+              autocomplete={'username'}
               label={'Username'} 
               placeholder={'Enter your username'}
               name={'username'}
@@ -35,36 +37,48 @@ const InputIndex = () => {
               required={true}
             />
             <Input 
+              autocomplete={'current-password'}
               label={"Password"} 
               placeholder={'Enter your password'}
               name={'password'}
               type={'password'}
-              hint={'Password should contain both number and letters'}
+              hint={'Password should contain number, letters and at least 6 characters'}
               required={true}
             />
             <Input 
+              autocomplete={'email'}
               label={"Email"} 
               placeholder={'Enter your email'}
               type={'email'}
               name={'email'}
               hint={'This is email'}
               required={true}
+              error={'Invalid email'}
             />
           </div>
           <div className={styles.container__inputs}>
             <Input 
+              autocomplete={'name'}
               label={"Name"} 
+              name={'name'}
+              hint={'This is your name'}
               placeholder={'Enter your name'}
             />
             <Input 
+              autocomplete={'tel'}
               label={"Phone"} 
               placeholder={'Enter your phone number'}
+              type={'number'}
+              name={'phone'}
+              hint={'This is your phone number'}
+              error={'Invalid phone number'}
             />
           </div>
           <div className={styles.container__inputs}>
             <Input 
               label={"Number"} 
               placeholder={'Enter number'}
+              type={'number'}
             />
             <Input 
               label={"Dates"} 
@@ -80,14 +94,9 @@ const InputIndex = () => {
             <TextArea
               label={"Text Area"} 
               placeholder={'Type text area'}
-              type={'text-area'}
               name={'text-area'}
             />
-            <Input 
-              label={"Dropdown"} 
-              placeholder={'Type dropdown'}
-              type={'dropdown'}
-              name={'dropdown'}
+            <DropDown
             />
              <Input 
               label={"Disabled"} 

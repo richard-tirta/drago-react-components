@@ -30,13 +30,26 @@ const inputStateReducer = (state: InputState, action: InputAction): InputState =
   return initialInputState;
 };
 
-const useInput = (validateValue: (value: string) => boolean) => {
+//const useInput = (validateValue: (value: string) => boolean) => {
+  const useInput = (inputType: string) => {
+  const isEmail = (value: string) => value.includes('@');
+  const numbersOnly = (value: string) => /^[0-9() -.]+$/.test(value);
+  const isPassword = (value: string) => /^(?=.*[A-Za-z])(?=.*\d).{7,}$/.test(value);
+  
   const [inputState, dispatch] = useReducer(inputStateReducer, initialInputState);
 
-  let valueIsValid = false;
+  let valueIsValid = true;
 
-  if (typeof validateValue === 'function') {
-    valueIsValid = validateValue(inputState.value);
+  if (inputType === 'email') {
+    valueIsValid = isEmail(inputState.value);
+  }
+
+  if (inputType === 'number') {
+    valueIsValid = numbersOnly(inputState.value);
+  }
+
+  if (inputType === 'password') {
+    valueIsValid = isPassword(inputState.value);
   }
 
   const hasError = !valueIsValid && inputState.isTouched;

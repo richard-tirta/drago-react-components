@@ -66,10 +66,10 @@ const PostInputIcon: FC<PostInputIconProps> = ({
             </svg >
             : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
               className={postIconClassNames} onClick={handleEyeClick}>
-              <path d="M4.5 15.5C7.5 9 16.5 9 19.5 15.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M16.8162 12.1825L19.5 8.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M12 10.625V7" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M7.18383 12.1825L4.5 8.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.5 15.5C7.5 9 16.5 9 19.5 15.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M16.8162 12.1825L19.5 8.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M12 10.625V7" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M7.18383 12.1825L4.5 8.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
         ) : (
           hint

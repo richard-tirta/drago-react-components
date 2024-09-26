@@ -5,7 +5,8 @@ import PostInputIcon from './PostInputIcon';
 import useInput from './use-input';
 
 interface InputProps {
-  type?: 'text' | 'email' | 'number' | 'date' | 'text-area' | 'password' | 'dropdown';
+  autocomplete?: string;
+  type?: 'text' | 'email' | 'number' | 'date' | 'password' | 'dropdown';
   size?: 'small' | 'medium' | 'large';
   name?: string;
   disabled?: boolean;
@@ -16,13 +17,13 @@ interface InputProps {
   aria?: string;
   hint?: string;
   error?: string;
-  isError?: boolean;
   reset?: () => void;
   isValid?: boolean;
   required?: boolean;
 }
 
 const Input: FC<InputProps> = ({
+  autocomplete = 'off',
   type = 'text',
   size = 'medium',
   name = '',
@@ -32,15 +33,10 @@ const Input: FC<InputProps> = ({
   aria = 'input',
   hint = '',
   error = 'Error',
-  isError = false,
   reset,
   isValid = true,
   required = false,
 }) => {
-
-  const isEmail = (value: string) => value.includes('@');
-  const alphabetOnly = (value: string) => /^[a-zA-Z() ]+$/.test(value);
-  const numbersOnly = (value: string) => /^[0-9() -.]+$/.test(value);
 
   const [inputType, setInputType] = useState(type);
   const [showHint, setShowHint] = useState(type !== 'password' ? false : true);
@@ -50,11 +46,11 @@ const Input: FC<InputProps> = ({
   }
 
   const handleHintClick = () => {
-    console.log('Hint clicked');
     if (hint) {
       setShowHint(!showHint);
     }
   }
+
 
   const {
     value,
@@ -63,7 +59,7 @@ const Input: FC<InputProps> = ({
     valueChangeHandler,
     inputBlurHandler,
     inputReset,
-  } = useInput(isEmail);
+  } = useInput(type);
 
   const inputClassNames = [
     styles.input,
@@ -73,6 +69,8 @@ const Input: FC<InputProps> = ({
     inputType === 'email' ? styles.icon : '',
     valueHasError ? styles.error : '',
   ].join(' ');
+
+  console.log('hmmm', valueHasError)
 
   return (
     <div className={styles.input__module}>
@@ -87,7 +85,8 @@ const Input: FC<InputProps> = ({
           : null
       }
       <input
-        type={inputType}
+        autoComplete={autocomplete}
+        type={inputType === 'number' ? 'text' : inputType}
         className={inputClassNames}
         placeholder={placeholder}
         onChange={valueChangeHandler}
@@ -99,7 +98,7 @@ const Input: FC<InputProps> = ({
       />
       <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
       <p id={`${aria}Hint`} className={styles.input__hint}>
-        {isError
+        {valueHasError
           ? error
           : showHint ? hint : ''
         }
