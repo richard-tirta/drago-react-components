@@ -6,15 +6,14 @@ interface DropDownProps {
   option : string[];
   name?: string;
   disabled?: boolean;
-  onChange?: () => void;
-  onFocus?: () => void;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLSelectElement>) => void;
+  value: string;
   label?: string;
   aria?: string;
   hint?: string;
   error?: string;
   isError?: boolean;
-  reset?: () => void;
-  isValid?: boolean;
   required?: boolean;
 }
 
@@ -26,9 +25,11 @@ const DropDown: FC<DropDownProps> = ({
   aria = 'input',
   hint = '',
   error = 'Error',
-  reset,
   required = false,
   isError = false,
+  onChange,
+  onBlur,
+  value = '',
 }) => {
 
   const [showHint, setShowHint] = useState(true);
@@ -62,6 +63,10 @@ const DropDown: FC<DropDownProps> = ({
         aria-labelledby={`${aria}Label`}
         aria-describedby={`${aria}Hint`}
         required={required}
+        disabled={disabled}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
       >
         {
           option.map((option, index) => {

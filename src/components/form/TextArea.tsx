@@ -7,15 +7,15 @@ interface TextAreaProps {
   cols?: number;
   name?: string;
   disabled?: boolean;
-  onChange?: () => void;
-  onFocus?: () => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  value: string;
   placeholder?: string;
   label?: string;
   aria?: string;
   hint?: string;
   error?: string;
   isError?: boolean;
-  reset?: () => void;
   isValid?: boolean;
   required?: boolean;
 }
@@ -31,8 +31,10 @@ const TextArea: FC<TextAreaProps> = ({
   hint = '',
   error = 'Error',
   isError = false,
-  reset,
   required = false,
+  onChange,
+  onBlur,
+  value = '',
 }) => {
 
   const [showHint, setShowHint] = useState(true);
@@ -69,6 +71,10 @@ const TextArea: FC<TextAreaProps> = ({
         name={name}
         rows={rows}
         cols={cols}
+        disabled={disabled}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
       />
       {
         hint ? <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className={postIconClassNames} onClick={handleHintClick}>

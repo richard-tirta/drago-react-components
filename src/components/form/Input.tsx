@@ -19,8 +19,6 @@ interface InputProps {
   hint?: string;
   isError?: boolean;
   error?: string;
-  reset?: () => void;
-  isValid?: boolean;
   required?: boolean;
 }
 
@@ -36,8 +34,6 @@ const Input: FC<InputProps> = ({
   hint = '',
   isError = false,
   error = 'Error',
-  reset,
-  isValid = true,
   required = false,
   onChange,
   onBlur,

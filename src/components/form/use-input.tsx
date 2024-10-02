@@ -54,7 +54,7 @@ const useInput = (inputType: string) => {
 
   const hasError = !valueIsValid && inputState.isTouched;
 
-  const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const valueChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     dispatch({ type: 'INPUT', value: event.target.value });
   };
 

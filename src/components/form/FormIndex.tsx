@@ -16,6 +16,8 @@ const FormIndex = () => {
   const nameInput = useInput('text');
   const phoneInput = useInput('number');
   const dateInput = useInput('date');
+  const textAreaInput = useInput('text');
+  const dropDownInput = useInput('text');
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,9 +30,17 @@ const FormIndex = () => {
       name: nameInput.value,
       phone: phoneInput.value,
       date: dateInput.value,
+      textArea: textAreaInput.value,
     }
 
     console.log('Form submitted', formData);
+    usernameInput.inputReset();
+    passwordInput.inputReset();
+    emailInput.inputReset();
+    nameInput.inputReset();
+    phoneInput.inputReset();
+    dateInput.inputReset();
+    textAreaInput.inputReset();
   }
 
   return (
@@ -121,10 +131,16 @@ const FormIndex = () => {
               placeholder={'Type text area'}
               name={'text-area'}
               hint={'This is text area'}
+              onBlur={textAreaInput.inputBlurHandler}
+              onChange={textAreaInput.valueChangeHandler}
+              value={textAreaInput.value}
             />
             <DropDown
               label={"Dropdown"}
               option={['Option 1', 'Option 2', 'Option 3']}
+              onChange={dropDownInput.valueChangeHandler}
+              onBlur={dropDownInput.inputBlurHandler}
+              value={dropDownInput.value}
             />
           </div>
           <Button onClick={() => {}} disabled={false}>

@@ -15,7 +15,10 @@ const InputIndex = () => {
   const dateInput = useInput('date');
   const numberInput = useInput('number');
   const smTextInput = useInput('text');
+  const textAreaInput = useInput('text');
+  const dropDownInput = useInput('text');
   const disabledInput = useInput('text');
+  
 
   return (
     <>
@@ -182,10 +185,16 @@ const InputIndex = () => {
               placeholder={'Type text area'}
               name={'text-area'}
               hint={'This is text area'}
+              onBlur={textAreaInput.inputBlurHandler}
+              onChange={textAreaInput.valueChangeHandler}
+              value={textAreaInput.value}
             />
             <DropDown
               label={"Dropdown"}
               option={['Option 1', 'Option 2', 'Option 3']}
+              onBlur={dropDownInput.inputBlurHandler}
+              onChange={dropDownInput.valueChangeHandler}
+              value={dropDownInput.value}
             />
             <Input
               label={"Disabled"}
