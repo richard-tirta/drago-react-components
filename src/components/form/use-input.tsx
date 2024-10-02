@@ -31,11 +31,11 @@ const inputStateReducer = (state: InputState, action: InputAction): InputState =
 };
 
 //const useInput = (validateValue: (value: string) => boolean) => {
-  const useInput = (inputType: string) => {
+const useInput = (inputType: string) => {
   const isEmail = (value: string) => value.includes('@');
   const numbersOnly = (value: string) => /^[0-9() -.]+$/.test(value);
   const isPassword = (value: string) => /^(?=.*[A-Za-z])(?=.*\d).{7,}$/.test(value);
-  
+
   const [inputState, dispatch] = useReducer(inputStateReducer, initialInputState);
 
   let valueIsValid = true;

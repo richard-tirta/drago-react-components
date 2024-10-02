@@ -2,7 +2,7 @@
 import React, { FC, useState } from 'react'
 import styles from './Input.module.scss'
 import PostInputIcon from './PostInputIcon';
-import useInput from './use-input';
+
 
 interface InputProps {
   autocomplete?: string;
@@ -10,12 +10,14 @@ interface InputProps {
   size?: 'small' | 'medium' | 'large';
   name?: string;
   disabled?: boolean;
-  onChange?: () => void;
-  onFocus?: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  value: string;
   placeholder?: string;
   label?: string;
   aria?: string;
   hint?: string;
+  isError?: boolean;
   error?: string;
   reset?: () => void;
   isValid?: boolean;
@@ -32,10 +34,14 @@ const Input: FC<InputProps> = ({
   label = '',
   aria = 'input',
   hint = '',
+  isError = false,
   error = 'Error',
   reset,
   isValid = true,
   required = false,
+  onChange,
+  onBlur,
+  value = '',
 }) => {
 
   const [inputType, setInputType] = useState(type);
@@ -51,24 +57,15 @@ const Input: FC<InputProps> = ({
     }
   }
 
-
-  const {
-    value,
-    isValid: valueIsValid,
-    hasError: valueHasError,
-    valueChangeHandler,
-    inputBlurHandler,
-    inputReset,
-  } = useInput(type);
-
   const inputClassNames = [
     styles.input,
     styles[type],
     styles[size],
     disabled ? styles.disabled : '',
     inputType === 'email' ? styles.icon : '',
-    valueHasError ? styles.error : '',
+    isError ? styles.error : '',
   ].join(' ');
+  
 
   return (
     <div className={styles.input__module}>
@@ -87,8 +84,8 @@ const Input: FC<InputProps> = ({
         type={inputType === 'number' ? 'text' : inputType}
         className={inputClassNames}
         placeholder={placeholder}
-        onChange={valueChangeHandler}
-        onBlur={inputBlurHandler}
+        onChange={onChange}
+        onBlur={onBlur}
         aria-labelledby={`${aria}Label`}
         aria-describedby={`${aria}Hint`}
         value={value}
@@ -96,7 +93,7 @@ const Input: FC<InputProps> = ({
       />
       <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
       <p id={`${aria}Hint`} className={styles.input__hint}>
-        {valueHasError
+        {isError
           ? error
           : showHint ? hint : ''
         }

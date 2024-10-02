@@ -26,9 +26,9 @@ const DropDown: FC<DropDownProps> = ({
   aria = 'input',
   hint = '',
   error = 'Error',
-  isError = false,
   reset,
   required = false,
+  isError = false,
 }) => {
 
   const [showHint, setShowHint] = useState(true);

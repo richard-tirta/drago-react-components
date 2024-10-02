@@ -66,6 +66,7 @@ const TextArea: FC<TextAreaProps> = ({
         aria-labelledby={`${aria}Label`}
         aria-describedby={`${aria}Hint`}
         required={required}
+        name={name}
         rows={rows}
         cols={cols}
       />

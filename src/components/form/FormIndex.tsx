@@ -1,11 +1,14 @@
 
+
 import Input from './Input'
 import TextArea from './TextArea'
 import DropDown from './DropDown'
+import Button from '../button/Button'
 import styles from './InputIndex.module.scss'
+
 import useInput from './use-input';
 
-const InputIndex = () => {
+const FormIndex = () => {
 
   const usernameInput = useInput('text');
   const passwordInput = useInput('password');
@@ -13,77 +16,32 @@ const InputIndex = () => {
   const nameInput = useInput('text');
   const phoneInput = useInput('number');
   const dateInput = useInput('date');
-  const numberInput = useInput('number');
-  const smTextInput = useInput('text');
-  const disabledInput = useInput('text');
+
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    
+    const formData = {
+      username: usernameInput.value,
+      password: passwordInput.value,
+      email: emailInput.value,
+      name: nameInput.value,
+      phone: phoneInput.value,
+      date: dateInput.value,
+    }
+
+    console.log('Form submitted', formData);
+  }
 
   return (
     <>
-      <h2>Inputs</h2>
-      <p>Attributes:</p>
-      <div className={styles.container__inputs}>
-        <div>
-          <p>
-            <strong>Input</strong>
-          </p>
-          <ul>
-            <li>autocomplete: string</li>
-            <li>type: 'text' | 'email' | 'number' | 'date' | 'password'</li>
-            <li>size: 'small' | 'medium' | 'large';</li>
-            <li>disabled: boolean;</li>
-            <li>onChange*: () =&gt; void;</li>
-            <li>onBlur*: () =&gt; void;</li>
-            <li>value*: string;</li>
-            <li>name?: string</li>
-            <li>placeholder?: string</li>
-            <li>required?: boolean</li>
-            <li>label?: string</li>
-            <li>aria?: string</li>
-            <li>hint?: string</li>
-            <li>error?: string</li>
-            <li>isValid?: boolean</li>
-          </ul>
-        </div>
-        <div>
-          <p>
-            <strong>Textarea</strong>
-          </p>
-          <ul>
-            <li>rows: number</li>
-            <li>cols: number</li>
-            <li>disabled: boolean</li>
-            <li>placeholder?: string</li>
-            <li>name?: string</li>
-            <li>label?: string</li>
-            <li>aria?: string</li>
-            <li>hint?: 'string'</li>
-            <li>error?: 'string'</li>
-            <li>required?: boolean</li>
-          </ul>
-        </div>
-        <div>
-          <p>
-            <strong>Dropdown</strong>
-          </p>
-          <ul>
-            <li>option: []</li>
-            <li>disabled: boolean</li>
-            <li>onChange?: () =&gt void</li>
-            <li>placeholder?: string</li>
-            <li>name?: string</li>
-            <li>label?: string</li>
-            <li>aria?: string</li>
-            <li>hint?: string</li>
-            <li>error?: string</li>
-            <li>required?: boolean</li>
-          </ul>
-        </div>
-      </div>
+      <h2>Form test</h2>
       <div>
-        <form>
+        <form onSubmit={submitHandler}>
           <div className={styles.container__inputs}>
 
             <Input
+              type={'text'}
               autocomplete={'username'}
               label={'Username'}
               placeholder={'Enter your username'}
@@ -150,32 +108,13 @@ const InputIndex = () => {
           </div>
           <div className={styles.container__inputs}>
             <Input
-              label={"Number"}
-              placeholder={'Enter number'}
-              type={'number'}
-              onChange={numberInput.valueChangeHandler}
-              onBlur={numberInput.inputBlurHandler}
-              value={numberInput.value}
-              
-            />
-            <Input
               label={"Dates"}
               type={'date'}
               placeholder={'Enter the dates'}
+              isError={dateInput.hasError}
               onChange={dateInput.valueChangeHandler}
               onBlur={dateInput.inputBlurHandler}
               value={dateInput.value}
-            />
-          </div>
-          <div className={styles.container__inputs}>
-            <Input
-              label={"Text"}
-              placeholder={'Type text small'}
-              name={'text'}
-              size={'small'}
-              onChange={smTextInput.valueChangeHandler}
-              onBlur={smTextInput.inputBlurHandler}
-              value={smTextInput.value}
             />
             <TextArea
               label={"Text Area"}
@@ -187,21 +126,14 @@ const InputIndex = () => {
               label={"Dropdown"}
               option={['Option 1', 'Option 2', 'Option 3']}
             />
-            <Input
-              label={"Disabled"}
-              placeholder={'This type is disabled'}
-              name={'disabled-text'}
-              size={'large'}
-              disabled={true}
-              onChange={disabledInput.valueChangeHandler}
-              onBlur={disabledInput.inputBlurHandler}
-              value={disabledInput.value}
-            />
           </div>
+          <Button onClick={() => {}} disabled={false}>
+            Submit
+          </Button>
         </form>
       </div>
     </>
   )
 }
 
-export default InputIndex
+export default FormIndex

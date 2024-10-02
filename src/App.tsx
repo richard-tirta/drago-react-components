@@ -5,6 +5,7 @@ import './App.css'
 import Button from './components/button/Button'
 import ButtonIndex from './components/button/ButtonIndex';
 import InputIndex from './components/form/InputIndex';
+import FormIndex from './components/form/FormIndex';
 
 function App() {
 
@@ -43,12 +44,16 @@ function App() {
             <li>
               <Button onClick={() => handleNavigation('/inputs')}>Inputs</Button>
             </li>
+            <li>
+              <Button onClick={() => handleNavigation('/forms')}>Form Test</Button>
+            </li>
           </ul>
         </nav>
       </div>
       <Routes>
         <Route path="/buttons" element={<ButtonIndex />} />
         <Route path="/inputs" element={<InputIndex />} />
+        <Route path="/forms" element={<FormIndex />} />
       </Routes>
     </>
   )
