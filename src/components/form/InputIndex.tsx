@@ -18,6 +18,7 @@ const InputIndex = () => {
   const textAreaInput = useInput('text');
   const dropDownInput = useInput('text');
   const disabledInput = useInput('text');
+  const toggleInput = useInput('text');
   
 
   return (
@@ -107,6 +108,7 @@ const InputIndex = () => {
               hint={'Password should contain number, letters and at least 6 characters'}
               required={true}
               isError={passwordInput.hasError}
+              alwaysShowHint={true}
               onChange={passwordInput.valueChangeHandler}
               onBlur={passwordInput.inputBlurHandler}
               value={passwordInput.value}
@@ -124,6 +126,16 @@ const InputIndex = () => {
               onChange={emailInput.valueChangeHandler}
               onBlur={emailInput.inputBlurHandler}
               value={emailInput.value}
+            />
+             <Input
+              label={"Toogle"}
+              type={'checkbox'}
+              name={'toogle'}
+              alwaysShowHint={true}
+              hint={'This is a toogle'}
+              onChange={toggleInput.valueChangeHandler}
+              onBlur={toggleInput.inputBlurHandler}
+              value={toggleInput.value}
             />
           </div>
           <div className={styles.container__inputs}>

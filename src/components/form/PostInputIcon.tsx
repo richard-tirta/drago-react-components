@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import styles from './Input.module.scss'
 
 interface PostInputIconProps {
-  inputType: 'number' | 'text' | 'email' | 'date' | 'text-area' | 'password' | 'dropdown';
+  inputType: 'number' | 'text' | 'email' | 'date' | 'password' | 'checkbox';
   size: 'small' | 'medium' | 'large';
   hint: string;
   disabled: boolean;

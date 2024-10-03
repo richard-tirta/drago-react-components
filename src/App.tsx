@@ -7,6 +7,7 @@ import ButtonIndex from './components/button/ButtonIndex';
 import InputIndex from './components/form/InputIndex';
 import FormIndex from './components/form/FormIndex';
 import ModalIndex from './components/modal/ModalIndex';
+import ConsentIndex from './components/consent/ConsentIndex';
 
 function App() {
 
@@ -51,6 +52,9 @@ function App() {
             <li>
               <Button onClick={() => handleNavigation('/modals')}>Modals</Button>
             </li>
+            <li>
+              <Button onClick={() => handleNavigation('/consent')}>Consent</Button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -59,6 +63,7 @@ function App() {
         <Route path="/inputs" element={<InputIndex />} />
         <Route path="/forms" element={<FormIndex />} />
         <Route path="/modals" element={<ModalIndex />} />
+        <Route path="/consent" element={<ConsentIndex />} />
       </Routes>
     </>
   )

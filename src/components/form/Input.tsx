@@ -6,7 +6,7 @@ import PostInputIcon from './PostInputIcon';
 
 interface InputProps {
   autocomplete?: string;
-  type?: 'text' | 'email' | 'number' | 'date' | 'password' | 'dropdown';
+  type?: 'text' | 'email' | 'number' | 'date' | 'password' | 'checkbox';
   size?: 'small' | 'medium' | 'large';
   name?: string;
   disabled?: boolean;
@@ -19,6 +19,7 @@ interface InputProps {
   hint?: string;
   isError?: boolean;
   error?: string;
+  alwaysShowHint?: boolean;
   required?: boolean;
 }
 
@@ -35,13 +36,14 @@ const Input: FC<InputProps> = ({
   isError = false,
   error = 'Error',
   required = false,
+  alwaysShowHint = false,
   onChange,
   onBlur,
   value = '',
 }) => {
 
   const [inputType, setInputType] = useState(type);
-  const [showHint, setShowHint] = useState(type !== 'password' ? false : true);
+  const [showHint, setShowHint] = useState(alwaysShowHint);
 
   const handlePasswordVisibility = () => {
     setInputType(inputType === 'password' ? 'text' : 'password');
@@ -87,7 +89,9 @@ const Input: FC<InputProps> = ({
         value={value}
         required={required}
       />
-      <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
+      {
+        type !== 'password' && alwaysShowHint ? null : <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
+      }
       <p id={`${aria}Hint`} className={styles.input__hint}>
         {isError
           ? error
