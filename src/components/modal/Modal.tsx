@@ -9,6 +9,7 @@ interface ModalProps {
   size?: 'small' | 'medium' | 'large' | 'full';
   children: React.ReactNode;
   aria?: string;
+  withOverlay?: boolean;
   onClick?: () => void;
   isModalOpen?: boolean;
 }
@@ -18,6 +19,7 @@ const Modal: FC<ModalProps> = ({
   size = 'medium',
   children,
   aria,
+  withOverlay = true,
   onClick,
   isModalOpen = false,
 }) => {
@@ -32,7 +34,7 @@ const Modal: FC<ModalProps> = ({
       document.body.style.overflow = 'auto';
       setIsShown(false);
     }
-   }, [isModalOpen]);
+  }, [isModalOpen]);
 
   const overlayStyles = [
     styles.overlay,
@@ -60,27 +62,35 @@ const Modal: FC<ModalProps> = ({
     []
   );
 
-  return isModalOpen
-    ? ReactDOM.createPortal(
-    <div className={overlayStyles} onClick={handleOverlayClick}>
-      <div className={modalStyles} role="dialog" onClick={handleModalClick} aria-labelledby={aria}>
-        <div>
-          {/* Close button */}
-          <div className={styles.close_button}>
-            <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
-              <span className={styles.close_button__icon}>
-                &times;
-              </span>
-            </Button>
-          </div>
-        </div>
-        <div className={styles.content}>
-          {children}
+  const modal = (
+    <div className={modalStyles} role="dialog" onClick={handleModalClick} aria-labelledby={aria}>
+      <div>
+        {/* Close button */}
+        <div className={styles.close_button}>
+          <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
+            <span className={styles.close_button__icon}>
+              &times;
+            </span>
+          </Button>
         </div>
       </div>
-    </div>,
-    document.body as HTMLElement
-  ) : <></>;
+      <div className={styles.content}>
+        {children}
+      </div>
+    </div>
+  );
+
+  return isModalOpen
+    ? ReactDOM.createPortal(
+      withOverlay ? (
+        <div className={overlayStyles} onClick={handleOverlayClick} >
+          {modal}
+        </div >
+      ) : (
+        modal
+      ),
+      document.body as HTMLElement
+    ) : null;
 }
 
 export default Modal
