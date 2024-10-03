@@ -6,6 +6,7 @@ import Button from './components/button/Button'
 import ButtonIndex from './components/button/ButtonIndex';
 import InputIndex from './components/form/InputIndex';
 import FormIndex from './components/form/FormIndex';
+import ModalIndex from './components/modal/ModalIndex';
 
 function App() {
 
@@ -47,6 +48,9 @@ function App() {
             <li>
               <Button onClick={() => handleNavigation('/forms')}>Form Test</Button>
             </li>
+            <li>
+              <Button onClick={() => handleNavigation('/modals')}>Modals</Button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -54,6 +58,7 @@ function App() {
         <Route path="/buttons" element={<ButtonIndex />} />
         <Route path="/inputs" element={<InputIndex />} />
         <Route path="/forms" element={<FormIndex />} />
+        <Route path="/modals" element={<ModalIndex />} />
       </Routes>
     </>
   )
