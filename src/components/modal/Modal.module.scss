@@ -96,6 +96,11 @@ $color_black: rgb(23, 23, 23);
   background-color: var(--background-color);
   padding: 20px;
   position: relative;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  &.visible {
+    opacity: 1;
+  }
   &.center {
     border-radius: 8px;
   }

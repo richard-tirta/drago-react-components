@@ -25,7 +25,7 @@ const ModalIndex = () => {
       <ul>
         <li>position: 'top' | 'center' | 'bottom' | 'left' | 'right'</li>
         <li>size: 'small' | 'medium' | 'large' | 'full'</li>
-        <li>aria: string</li>
+        <li>aria: string (aria label id)</li>
         <li>onClick: () =&gt; void</li>
         <li>isModalOpen: boolean</li>
       </ul>
@@ -89,18 +89,15 @@ const ModalIndex = () => {
           Center Full
         </Button>
       </div>
-      {
-          isModalOpen && (
-            <Modal aria="Primary Modal" size={modalSize} position={modalPosition} isModalOpen={isModalOpen} onClick={() => setIsModalOpen(false)}>
-              <h2>Small Center Modal</h2>
-              <p>
-                The wizard quickly jinxed the gnomes before they vaporized.
-              </p>
-              <Button onClick={() => setIsModalOpen(false)} type={'primary'}>
-                Close the Gate
-              </Button>
-            </Modal>
-          )}
+      <Modal aria="primary-modal" size={modalSize} position={modalPosition} isModalOpen={isModalOpen} onClick={() => setIsModalOpen(false)}>
+        <h2>Small Center Modal</h2>
+        <p>
+          The wizard quickly jinxed the gnomes before they vaporized.
+        </p>
+        <Button onClick={() => setIsModalOpen(false)} type={'primary'}>
+          Close the Gate
+        </Button>
+      </Modal>
     </>
   )
 }
