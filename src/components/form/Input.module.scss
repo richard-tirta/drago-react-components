@@ -44,6 +44,7 @@ input {
   &.checkbox {
     width: 30px;
     height: 30px;
+    margin: 4px;
   }
   &.icon {
     padding-left: 40px;
@@ -56,6 +57,9 @@ input {
   &.medium {
     font-size: 14px;
     min-height: 40px;
+    &.checkbox {
+      min-height: 30px;
+    }
   }
 
   &.large {

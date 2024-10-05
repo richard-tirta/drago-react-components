@@ -12,6 +12,7 @@ interface ModalProps {
   withOverlay?: boolean;
   onClick?: () => void;
   isModalOpen?: boolean;
+  required?: boolean;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -22,16 +23,20 @@ const Modal: FC<ModalProps> = ({
   withOverlay = true,
   onClick,
   isModalOpen = false,
+  required = false,
 }) => {
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const [isShown, setIsShown] = React.useState(false);
 
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'hidden';
+      dialogRef.current?.showModal();
       setIsShown(true);
     } else {
       document.body.style.overflow = 'auto';
+      dialogRef.current?.close();
       setIsShown(false);
     }
   }, [isModalOpen]);
@@ -39,6 +44,7 @@ const Modal: FC<ModalProps> = ({
   const overlayStyles = [
     styles.overlay,
     styles[position],
+    styles[required ? 'required' : ''],
   ].join(' ');
 
   const modalStyles = [
@@ -63,15 +69,17 @@ const Modal: FC<ModalProps> = ({
   );
 
   const modal = (
-    <div className={modalStyles} role="dialog" onClick={handleModalClick} aria-labelledby={aria}>
+    <div className={modalStyles} role={required ? 'alertdialog' : 'dialog'} onClick={handleModalClick} aria-labelledby={aria}>
       <div>
         {/* Close button */}
         <div className={styles.close_button}>
-          <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
-            <span className={styles.close_button__icon}>
-              &times;
-            </span>
-          </Button>
+          {
+            required ? null : <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
+              <span className={styles.close_button__icon}>
+                &times;
+              </span>
+            </Button>
+          }
         </div>
       </div>
       <div className={styles.content}>
@@ -83,9 +91,9 @@ const Modal: FC<ModalProps> = ({
   return isModalOpen
     ? ReactDOM.createPortal(
       withOverlay ? (
-        <div className={overlayStyles} onClick={handleOverlayClick} >
+        <dialog className={overlayStyles} onClick={required ? undefined : handleOverlayClick} >
           {modal}
-        </div >
+        </dialog>
       ) : (
         modal
       ),

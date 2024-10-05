@@ -19,8 +19,8 @@ interface InputProps {
   hint?: string;
   isError?: boolean;
   error?: string;
-  alwaysShowHint?: boolean;
   required?: boolean;
+  checked?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -36,14 +36,14 @@ const Input: FC<InputProps> = ({
   isError = false,
   error = 'Error',
   required = false,
-  alwaysShowHint = false,
   onChange,
   onBlur,
   value = '',
+  checked = false,
 }) => {
 
   const [inputType, setInputType] = useState(type);
-  const [showHint, setShowHint] = useState(alwaysShowHint);
+  const [showHint, setShowHint] = useState(type === 'password' ? true : false);
 
   const handlePasswordVisibility = () => {
     setInputType(inputType === 'password' ? 'text' : 'password');
@@ -63,7 +63,7 @@ const Input: FC<InputProps> = ({
     inputType === 'email' ? styles.icon : '',
     isError ? styles.error : '',
   ].join(' ');
-  
+
 
   return (
     <div className={styles.input__module}>
@@ -88,16 +88,22 @@ const Input: FC<InputProps> = ({
         aria-describedby={`${aria}Hint`}
         value={value}
         required={required}
+        disabled={disabled}
+        {...(type === 'checkbox' && checked ? { checked } : {})}
       />
       {
-        type !== 'password' && alwaysShowHint ? null : <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
+        type === 'checkbox' ? null : <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
       }
-      <p id={`${aria}Hint`} className={styles.input__hint}>
-        {isError
-          ? error
-          : showHint ? hint : ''
-        }
-      </p>
+      {
+        type !== 'checkbox' ?
+          <p id={`${aria}Hint`} className={styles.input__hint}>
+            {isError
+              ? error
+              : showHint ? hint : ''
+            }
+          </p>
+          : null
+      }
     </div>
   )
 }
