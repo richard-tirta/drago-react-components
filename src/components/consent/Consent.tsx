@@ -2,9 +2,8 @@
 import React, { FC, useState, useEffect } from 'react'
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
-import Input from '../form/Input';
+import Checkbox from '../form/Checkbox';
 import styles from './Consent.module.scss'
-import useInput from '../form/use-input';
 
 interface ConsentProps {
   position?: 'top' | 'center' | 'bottom' | 'left' | 'right';
@@ -18,15 +17,19 @@ interface ConsentProps {
 const Consent: FC<ConsentProps> = (
 
 ) => {
-  const toggleInput = useInput('text');
   const [showConsent, setShowConsent] = useState(true);
   const [showManageCookies, setShowManageCookies] = useState(false);
+  const [analyticsInput, setAnalyticsInput] = useState(false);
+  const [marketingInput, setMarketingInput] = useState(false);
 
   useEffect(() => {
-
+    const consent = localStorage.getItem('cookieConsent');
+    if (!consent) setShowConsent(true);
   }, []);
 
   const handleAllowCookies = () => {
+    const preferences = ['essential', 'analytics', 'marketing'];
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
     setShowConsent(!showConsent);
   }
 
@@ -34,24 +37,34 @@ const Consent: FC<ConsentProps> = (
     setShowManageCookies(!showManageCookies);
   }
 
-  const handleDeclineCookies = () => { 
+  const handleDeclineCookies = () => {
+    const preferences = ['essential'];
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
     setShowConsent(!showConsent);
   }
   
   const handleManageAllowCookies = () => { 
+    const preferences = ['essential', 'analytics', 'marketing'];
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
     setShowManageCookies(!showManageCookies);
     setShowConsent(!showConsent)
   }
-  const handleManageSaveCookies = () => {
+  const handleManageSaveCookies = async () => {
+    let formData = ['essential'];
+    if (analyticsInput) formData.push('analytics');
+    if (marketingInput) formData.push('marketing');
+    console.log('Form submitted', formData);
+    localStorage.setItem('cookieConsent', JSON.stringify(formData));
     setShowManageCookies(!showManageCookies);
     setShowConsent(!showConsent)
    }
   
   const handleManageDeclineCookies = () => {
+    const preferences = ['essential'];
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
     setShowManageCookies(!showManageCookies);
     setShowConsent(!showConsent)
-   }
-
+  }
 
   return (
     showConsent &&
@@ -79,18 +92,14 @@ const Consent: FC<ConsentProps> = (
         <h3>
           Manage cookies
         </h3>
-        <form>
           <div>
             <div className={styles.header_container}>
               <h3>Essentials</h3>
-              <Input
-                type="checkbox"
-                onChange={toggleInput.valueChangeHandler}
-                onBlur={toggleInput.inputBlurHandler}
-                value={toggleInput.value}
+              <Checkbox
                 disabled={true}
                 checked={true}
-              />
+                value="essential"
+            />
             </div>
             <p>
               These cookies are essential for the proper functioning of our services and cannot be disabled.
@@ -99,12 +108,11 @@ const Consent: FC<ConsentProps> = (
           <div>
             <div className={styles.header_container}>
               <h3>Analytics</h3>
-              <Input
-                type="checkbox"
-                onChange={toggleInput.valueChangeHandler}
-                onBlur={toggleInput.inputBlurHandler}
-                value={toggleInput.value}
-              />
+              <Checkbox
+                onChange={() => setAnalyticsInput(!analyticsInput)}
+                checked={analyticsInput}
+                value={'analytics'}
+            />
             </div>
             <p>
               These cookies help us to understand how you interact with our website by providing information about the areas visited, the time spent on the website, and any issues encountered, such as error messages.
@@ -113,11 +121,10 @@ const Consent: FC<ConsentProps> = (
           <div>
             <div className={styles.header_container}>
               <h3>Marketing</h3>
-              <Input
-                type="checkbox"
-                onChange={toggleInput.valueChangeHandler}
-                onBlur={toggleInput.inputBlurHandler}
-                value={toggleInput.value}
+              <Checkbox
+                onChange={() => setMarketingInput(!marketingInput)}
+                checked={marketingInput}
+                value={"marketing"}
               />
             </div>
             <p>
@@ -135,7 +142,6 @@ const Consent: FC<ConsentProps> = (
           <Button type="destructive" size="small" onClick={handleManageDeclineCookies}>
             Decline all
           </Button>
-        </form>
       </Modal>
       }
     </>

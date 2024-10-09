@@ -1,6 +1,7 @@
 
-
+import {useState} from 'react'
 import Input from './Input'
+import Checkbox from './Checkbox'
 import TextArea from './TextArea'
 import DropDown from './DropDown'
 import Button from '../button/Button'
@@ -18,6 +19,7 @@ const FormIndex = () => {
   const dateInput = useInput('date');
   const textAreaInput = useInput('text');
   const dropDownInput = useInput('text');
+  const [checkbox, setCheckbox] = useState(false);
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,6 +29,7 @@ const FormIndex = () => {
       username: usernameInput.value,
       password: passwordInput.value,
       email: emailInput.value,
+      checkbox: checkbox,
       name: nameInput.value,
       phone: phoneInput.value,
       date: dateInput.value,
@@ -37,6 +40,7 @@ const FormIndex = () => {
     usernameInput.inputReset();
     passwordInput.inputReset();
     emailInput.inputReset();
+    setCheckbox(false);
     nameInput.inputReset();
     phoneInput.inputReset();
     dateInput.inputReset();
@@ -89,6 +93,12 @@ const FormIndex = () => {
               onChange={emailInput.valueChangeHandler}
               onBlur={emailInput.inputBlurHandler}
               value={emailInput.value}
+            />
+            <Checkbox
+              label={"Checkbox"}
+              onChange={() => {() => setCheckbox(!checkbox)}}
+              value={'checkbox'}
+              checked={checkbox}
             />
           </div>
           <div className={styles.container__inputs}>

@@ -2,8 +2,10 @@
 import Input from './Input'
 import TextArea from './TextArea'
 import DropDown from './DropDown'
+import Checkbox from './Checkbox'
 import styles from './InputIndex.module.scss'
-import useInput from './use-input';
+import useInput from './use-input'
+import { useState } from 'react'
 
 const InputIndex = () => {
 
@@ -18,7 +20,9 @@ const InputIndex = () => {
   const textAreaInput = useInput('text');
   const dropDownInput = useInput('text');
   const disabledInput = useInput('text');
-  const toggleInput = useInput('text');
+
+  const [toggleInput, setToggleInput] = useState(false);
+  
   
 
   return (
@@ -108,7 +112,6 @@ const InputIndex = () => {
               hint={'Password should contain number, letters and at least 6 characters'}
               required={true}
               isError={passwordInput.hasError}
-              alwaysShowHint={true}
               onChange={passwordInput.valueChangeHandler}
               onBlur={passwordInput.inputBlurHandler}
               value={passwordInput.value}
@@ -127,15 +130,10 @@ const InputIndex = () => {
               onBlur={emailInput.inputBlurHandler}
               value={emailInput.value}
             />
-             <Input
-              label={"Toogle"}
-              type={'checkbox'}
-              name={'toogle'}
-              alwaysShowHint={true}
-              hint={'This is a toogle'}
-              onChange={toggleInput.valueChangeHandler}
-              onBlur={toggleInput.inputBlurHandler}
-              value={toggleInput.value}
+            <Checkbox
+              label={"Toggle"}
+              onChange={() => setToggleInput(!toggleInput)}
+              checked={false}
             />
           </div>
           <div className={styles.container__inputs}>

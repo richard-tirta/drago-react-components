@@ -6,13 +6,13 @@ import PostInputIcon from './PostInputIcon';
 
 interface InputProps {
   autocomplete?: string;
-  type?: 'text' | 'email' | 'number' | 'date' | 'password' | 'checkbox';
+  type?: 'text' | 'email' | 'number' | 'date' | 'password';
   size?: 'small' | 'medium' | 'large';
   name?: string;
   disabled?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
-  value: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  value?: string;
   placeholder?: string;
   label?: string;
   aria?: string;
@@ -20,7 +20,6 @@ interface InputProps {
   isError?: boolean;
   error?: string;
   required?: boolean;
-  checked?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -39,7 +38,6 @@ const Input: FC<InputProps> = ({
   onChange,
   onBlur,
   value = '',
-  checked = false,
 }) => {
 
   const [inputType, setInputType] = useState(type);
@@ -89,20 +87,17 @@ const Input: FC<InputProps> = ({
         value={value}
         required={required}
         disabled={disabled}
-        {...(type === 'checkbox' && checked ? { checked } : {})}
       />
       {
-        type === 'checkbox' ? null : <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
+        <PostInputIcon inputType={type} size={size} disabled={disabled} hint={hint} onPasswordClick={handlePasswordVisibility} onHintClick={handleHintClick} />
       }
       {
-        type !== 'checkbox' ?
           <p id={`${aria}Hint`} className={styles.input__hint}>
             {isError
               ? error
               : showHint ? hint : ''
             }
           </p>
-          : null
       }
     </div>
   )
