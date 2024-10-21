@@ -1,5 +1,5 @@
 
-import React, { FC, useCallback, useEffect, useRef } from 'react'
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import Button from '../button/Button';
 import styles from './Modal.module.scss'
@@ -27,7 +27,7 @@ const Modal: FC<ModalProps> = ({
 }) => {
 
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [isShown, setIsShown] = React.useState(false);
+  const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -74,12 +74,13 @@ const Modal: FC<ModalProps> = ({
         {/* Close button */}
         <div className={styles.close_button}>
           {
-            required ? null : <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
-              <span className={styles.close_button__icon}>
-                &times;
-              </span>
-            </Button>
-          }
+            required ? null : (
+              <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
+                <span className={styles.close_button__icon}>
+                  &times;
+                </span>
+              </Button>
+            )}
         </div>
       </div>
       <div className={styles.content}>
@@ -91,7 +92,7 @@ const Modal: FC<ModalProps> = ({
   return isModalOpen
     ? ReactDOM.createPortal(
       withOverlay ? (
-        <dialog className={overlayStyles} onClick={required ? undefined : handleOverlayClick} >
+        <dialog className={overlayStyles} onClick={required ? undefined : handleOverlayClick} ref={dialogRef}>
           {modal}
         </dialog>
       ) : (

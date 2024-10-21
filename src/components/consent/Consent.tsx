@@ -67,9 +67,8 @@ const Consent: FC<ConsentProps> = (
   }
 
   return (
-    showConsent &&
     <>
-      <Modal isModalOpen={true} position={'bottom'} onClick={() => setShowConsent(!showConsent)} required={true}>
+      <Modal isModalOpen={showConsent} position={'bottom'} onClick={() => setShowConsent(!showConsent)} required={true}>
         <h3>
           We use cookies
         </h3>
