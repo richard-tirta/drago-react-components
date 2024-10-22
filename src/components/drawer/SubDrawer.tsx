@@ -32,34 +32,26 @@ const SubDrawer: FC<SubDrawerProps> = ({
     return { header, paragraph };
   }, [children]);
 
-  const { expandAll, registerSubDrawer, updateSubDrawerState } = useDrawerContext();
+  const { expandAll, updateSubDrawerState } = useDrawerContext();
   const [open, setOpen] = useState(expandAll);
-  const isRegistred = useRef(false);
+  const isRegistered = useRef(false);
 
   useEffect(() => {
-    console.log('registering', id, open);
-    if (!isRegistred.current) {
-      registerSubDrawer(id, open);
-      isRegistred.current = true;
+    if (!isRegistered.current) {
+      updateSubDrawerState(id, open);
+      isRegistered.current = true;
     }
-  }, [id, open, registerSubDrawer]);
 
-  useEffect(() => { 
-    console.log('expandAll', expandAll);
     if (expandAll) {
       setOpen(true);
     }
-  }, [expandAll]);
+  }, [id, open, updateSubDrawerState, expandAll]);
 
-  const handleToggle = useCallback((e : React.MouseEvent<HTMLAnchorElement>) => { 
+  const handleToggle = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => { 
     e.preventDefault();
-    setOpen((prevOpen) => {
-      const newOpen = !prevOpen;
-      console.log('updating', id, newOpen);
-      updateSubDrawerState(id, newOpen);
-      return newOpen;
-    })
-  }, [id, updateSubDrawerState]);
+    setOpen((prevOpen) => !prevOpen); // Only toggle the local state
+    updateSubDrawerState(id, open);
+  }, []);
 
   return (
     <>

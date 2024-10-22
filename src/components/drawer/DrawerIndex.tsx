@@ -10,7 +10,7 @@ const DrawerIndex = () => {
   return (
     <>
       <Drawer>
-        <SubDrawer>
+        <SubDrawer id="drawer1">
           <Header>
             <h3>Drawer</h3>
           </Header>
@@ -21,7 +21,7 @@ const DrawerIndex = () => {
             </p>
           </Paragraph>
         </SubDrawer>
-        <SubDrawer>
+        <SubDrawer id="drawer2">
           <Header>
             <h3>Drawer 2</h3>
           </Header>

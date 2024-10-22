@@ -4,7 +4,6 @@ import React, { FC, createContext, useContext, useState, useEffect } from 'react
 interface DrawerContextType { 
   expandAll: boolean;
   setExpandAll: (expandAll: boolean) => void;
-  registerSubDrawer: (id: string, isOpen: boolean) => void;
   updateSubDrawerState: (id: string, isOpen: boolean) => void;
 }
 
@@ -26,13 +25,15 @@ export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
   const [expandAll, setExpandAll] = useState(false);
   const [subDrawerStates, setSubDrawerStates] = useState<{ [key: string]: boolean }>({});
 
-  const registerSubDrawer = (id: string, isOpen: boolean) => {
-    console.log('hello', id, isOpen)
-    setSubDrawerStates((prevState) => ({ ...prevState, [id]: isOpen }));
-  };
-
   const updateSubDrawerState = (id: string, isOpen: boolean) => { 
-    setSubDrawerStates((prevState) => ({ ...prevState, [id]: isOpen }));
+    setSubDrawerStates((prevState) => {
+      const newState = { ...prevState, [id]: isOpen };
+      const allClosed = Object.values(newState).every((isOpen) => !isOpen);
+      if (allClosed) {
+        setExpandAll(false);
+      }
+      return newState;
+    });
   };
 
   useEffect(() => { 
@@ -43,7 +44,7 @@ export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
   }, [subDrawerStates]);
 
   return (
-    <DrawerContext.Provider value={{ expandAll, setExpandAll, registerSubDrawer, updateSubDrawerState }}>
+    <DrawerContext.Provider value={{ expandAll, setExpandAll, updateSubDrawerState }}>
       {children}
     </DrawerContext.Provider>
   )
