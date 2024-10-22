@@ -1,8 +1,28 @@
+[data-theme="dark"] {
+  --primary-color: rgb(230, 230, 230);
+  --background-color: rgb(23, 23, 23);
+  --color-blue: rgb(67, 56, 202);
+  --color-gray: #E5E5E5;
+  --secondary-hover: rgb(23, 23, 23);
+  --disabled: rgb(40,40,40);
+}
+
+[data-theme="light"] {
+  --primary-color: rgb(23, 23, 23);
+  --background-color: rgb(230, 230, 230);
+  --color-blue: rgb(67, 56, 202);
+  --color-gray: #E5E5E5;
+  --secondary-hover: #FAFAFA;
+  --disabled: #F5F5F5;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  position: relative;
+  color: var(--primary-color);
 }
 
 h3 {

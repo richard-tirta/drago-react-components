@@ -1,7 +1,8 @@
 
-import React, { FC, useMemo } from 'react'
-import Header from '../component_support/Header';
-import Paragraph from '../component_support/Paragraph';
+import React, { FC } from 'react'
+import Button from '../button/Button';
+import styles from './Drawer.module.scss'
+import { DrawerProvider, useDrawerContext } from './DrawerContext';
 
 interface DrawerProps {
   children: React.ReactNode;
@@ -10,39 +11,29 @@ interface DrawerProps {
 const Drawer: FC<DrawerProps> = ({
   children,
 }) => {
-  const { header, paragraph } = useMemo(() => {
-    let header: React.ReactNode = null;
-    let paragraph: React.ReactNode = null;
 
-      React.Children.forEach(children, (child) => {
-        if (React.isValidElement(child)) {
-          if (child.type === Header) {
-            header = child;
-          }
-          if (child.type === Paragraph) {
-            paragraph = child;
-          }
-        }
-      });
-    
-    return { header, paragraph };
-  }, [children]);
+  const { setExpandAll, expandAll } = useDrawerContext();
 
+  const handleExpandAll = () => {
+    setExpandAll(true);
+  }
 
   return (
-    <>
-      {header && paragraph ? (
-        <div>
-          <div>
-            {header}
-          </div>
-          <div>
-            {paragraph}
-          </div>
-        </div>
-      ) : null}
-    </>
+    <div className={styles.drawer}>
+      <Button type="tertiary" onClick={handleExpandAll} disabled={expandAll}>Expand All</Button>
+      {children}
+    </div>
   )
 }
 
-export default Drawer
+const DrawerWithProvider: FC<DrawerProps> = ({ children }) => {
+  return (
+    <DrawerProvider>
+      <Drawer>
+        {children}
+      </Drawer>
+    </DrawerProvider>
+  )
+}
+
+export default DrawerWithProvider;
