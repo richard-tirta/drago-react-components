@@ -1,5 +1,5 @@
 
-import React, { FC, useEffect, useMemo, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState, useRef, useCallback } from 'react'
 import Header from '../component_support/Header';
 import Paragraph from '../component_support/Paragraph';
 import { useDrawerContext } from './DrawerContext';
@@ -34,25 +34,32 @@ const SubDrawer: FC<SubDrawerProps> = ({
 
   const { expandAll, registerSubDrawer, updateSubDrawerState } = useDrawerContext();
   const [open, setOpen] = useState(expandAll);
+  const isRegistred = useRef(false);
 
   useEffect(() => {
-    registerSubDrawer(id, open);
+    console.log('registering', id, open);
+    if (!isRegistred.current) {
+      registerSubDrawer(id, open);
+      isRegistred.current = true;
+    }
   }, [id, open, registerSubDrawer]);
-   
+
   useEffect(() => { 
+    console.log('expandAll', expandAll);
     if (expandAll) {
       setOpen(true);
     }
   }, [expandAll]);
 
-  const handleToggle = (e : React.MouseEvent<HTMLAnchorElement>) => { 
+  const handleToggle = useCallback((e : React.MouseEvent<HTMLAnchorElement>) => { 
     e.preventDefault();
     setOpen((prevOpen) => {
       const newOpen = !prevOpen;
+      console.log('updating', id, newOpen);
       updateSubDrawerState(id, newOpen);
       return newOpen;
     })
-  }
+  }, [id, updateSubDrawerState]);
 
   return (
     <>
@@ -73,4 +80,4 @@ const SubDrawer: FC<SubDrawerProps> = ({
   )
 }
 
-export default SubDrawer
+export default React.memo(SubDrawer);

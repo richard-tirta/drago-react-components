@@ -27,6 +27,7 @@ export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
   const [subDrawerStates, setSubDrawerStates] = useState<{ [key: string]: boolean }>({});
 
   const registerSubDrawer = (id: string, isOpen: boolean) => {
+    console.log('hello', id, isOpen)
     setSubDrawerStates((prevState) => ({ ...prevState, [id]: isOpen }));
   };
 
