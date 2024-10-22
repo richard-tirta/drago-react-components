@@ -14,6 +14,10 @@ const SubDrawer: FC<SubDrawerProps> = ({
   children,
   id,
 }) => {
+  const { expandAll, updateSubDrawerState } = useDrawerContext();
+  const [open, setOpen] = useState(expandAll);
+  const isRegistered = useRef(false);
+
   const { header, paragraph } = useMemo(() => {
     let header: React.ReactNode = null;
     let paragraph: React.ReactNode = null;
@@ -32,20 +36,18 @@ const SubDrawer: FC<SubDrawerProps> = ({
     return { header, paragraph };
   }, [children]);
 
-  const { expandAll, updateSubDrawerState } = useDrawerContext();
-  const [open, setOpen] = useState(expandAll);
-  const isRegistered = useRef(false);
-
   useEffect(() => {
     if (!isRegistered.current) {
       updateSubDrawerState(id, open);
       isRegistered.current = true;
     }
+  }, [id, open, updateSubDrawerState]);
 
+  useEffect(() => {
     if (expandAll) {
       setOpen(true);
     }
-  }, [id, open, updateSubDrawerState, expandAll]);
+  }, [expandAll]);
 
   const handleToggle = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => { 
     e.preventDefault();
