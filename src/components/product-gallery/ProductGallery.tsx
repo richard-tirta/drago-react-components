@@ -1,5 +1,6 @@
 
 import React, { FC, useState } from 'react'
+import Carousel from '../carousels/Carousel'
 import styles from './ProductGallery.module.scss'
 
 
@@ -26,7 +27,7 @@ const ProductGallery: FC<ProductGalleryProps> = ({
   return (
     <>
       <div className={styles.product_gallery}>
-        <img src={imageList[currentImage].url} alt={imageList[currentImage].alt} width={400} />
+        <Carousel images={imageList} currentIndex={currentImage} setCurrentIndex={setCurrentImage} />
         <div className={styles.product__thumbnail}>
           {
             imageList.map((image, index) => {

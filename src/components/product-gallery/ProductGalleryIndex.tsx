@@ -16,10 +16,7 @@ const ProductGalleryIndex = () => {
       images.push(currentImage);
     }
   }
-
-  console.log('hello', images);
   
-
   return (
     <>
       <h2>Product Gallery</h2>
