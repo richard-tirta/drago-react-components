@@ -5,18 +5,8 @@ import Modal from '../modal/Modal';
 import Checkbox from '../form/Checkbox';
 import styles from './Consent.module.scss'
 
-interface ConsentProps {
-  position?: 'top' | 'center' | 'bottom' | 'left' | 'right';
-  size?: 'small' | 'medium' | 'large' | 'full';
-  aria?: string;
-  withOverlay?: boolean;
-  onClick?: () => void;
-  isModalOpen?: boolean;
-}
 
-const Consent: FC<ConsentProps> = (
-
-) => {
+const Consent = () => {
   const [showConsent, setShowConsent] = useState(true);
   const [showManageCookies, setShowManageCookies] = useState(false);
   const [analyticsInput, setAnalyticsInput] = useState(false);

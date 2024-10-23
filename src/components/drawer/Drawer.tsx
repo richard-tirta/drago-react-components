@@ -20,7 +20,9 @@ const Drawer: FC<DrawerProps> = ({
 
   return (
     <div className={styles.drawer}>
-      <Button type="tertiary" onClick={handleExpandAll} disabled={expandAll}>Expand All</Button>
+      <span className={styles.drawer__expand_button}>
+        <Button type="tertiary" onClick={handleExpandAll} disabled={expandAll}>Expand All</Button>
+      </span>
       {children}
     </div>
   )

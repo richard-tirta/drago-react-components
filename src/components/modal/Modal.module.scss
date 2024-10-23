@@ -49,6 +49,13 @@ $color_black: rgb(23, 23, 23);
 	@media (max-height: 400px) { @content; }
 }
 
+dialog {
+  padding: 0;
+  margin: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
