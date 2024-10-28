@@ -49,3 +49,5 @@ export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
     </DrawerContext.Provider>
   )
 }
+
+export { DrawerContext };

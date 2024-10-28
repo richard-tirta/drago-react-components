@@ -59,7 +59,7 @@ const SubDrawer: FC<SubDrawerProps> = ({
     <>
       {header && paragraph ? (
         <div className={`${styles.subdrawer} ${open ? styles.drawer__paragraph_open : styles.drawer__paragraph_closed}`}>
-          <a href="#" onClick={(e) => {handleToggle(e)}} className={styles.drawer_header}>
+          <a href="#" onClick={(e) => {handleToggle(e)}} className={styles.drawer_header} data-testid={`toggle-${id}`}>
             {header}
             <span className={styles.drawer_icon}>{open ? '+' : '-'}</span>
           </a>
