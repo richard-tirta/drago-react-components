@@ -69,13 +69,13 @@ const Modal: FC<ModalProps> = ({
   );
 
   const modal = (
-    <div className={modalStyles} role={required ? 'alertdialog' : 'dialog'} onClick={handleModalClick} aria-labelledby={aria}>
+    <div className={modalStyles} role={required ? 'alertdialog' : 'dialog'} onClick={handleModalClick} aria-labelledby={aria} data-testid="modal">
       <div>
         {/* Close button */}
         <div className={styles.close_button}>
           {
             required ? null : (
-              <Button type={'tertiary'} aria-label="Close modal" size={'medium'} onClick={onClick}>
+              <Button type={'tertiary'} size={'medium'} onClick={onClick} aria="Close modal">
                 <span className={styles.close_button__icon}>
                   &times;
                 </span>
@@ -92,7 +92,7 @@ const Modal: FC<ModalProps> = ({
   return isModalOpen
     ? ReactDOM.createPortal(
       withOverlay ? (
-        <dialog className={overlayStyles} onClick={required ? undefined : handleOverlayClick} ref={dialogRef}>
+        <dialog className={overlayStyles} onClick={required ? undefined : handleOverlayClick} ref={dialogRef} data-testid="overlay">
           {modal}
         </dialog>
       ) : (

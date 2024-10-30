@@ -69,7 +69,7 @@ const Consent = () => {
           <Button onClick={handleAllowCookies}>
             Allow cookies
           </Button>
-          <Button type='secondary' onClick={handleManageClick}>
+          <Button type='secondary' onClick={handleManageClick} aria="Manage Cookies">
             Manage cookies
           </Button>
           <Button type="destructive" size="small" onClick={handleDeclineCookies}>
@@ -100,7 +100,8 @@ const Consent = () => {
               <Checkbox
                 onChange={() => setAnalyticsInput(!analyticsInput)}
                 checked={analyticsInput}
-                value={'analytics'}
+              value={'analytics'}
+              aria={'analytics'}
             />
             </div>
             <p>
@@ -113,7 +114,8 @@ const Consent = () => {
               <Checkbox
                 onChange={() => setMarketingInput(!marketingInput)}
                 checked={marketingInput}
-                value={"marketing"}
+              value={"marketing"}
+              aria={"marketing"}
               />
             </div>
             <p>
@@ -124,7 +126,7 @@ const Consent = () => {
             <Button onClick={handleManageAllowCookies}>
               Accept all
             </Button>
-            <Button type='secondary' onClick={handleManageSaveCookies}>
+            <Button type='secondary' onClick={handleManageSaveCookies} aria="Save Cookies">
               Save
             </Button>
           </div>

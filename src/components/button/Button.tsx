@@ -36,6 +36,7 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled}
       onClick={!disabled ? onClick : undefined}
       aria-label={aria}
+      data-testid={aria}
     >
       {icon === 'left' || icon === 'both'
         ? <svg

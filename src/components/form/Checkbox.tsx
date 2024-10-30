@@ -51,6 +51,7 @@ const Checkbox: FC<CheckboxProps> = forwardRef<HTMLInputElement, CheckboxProps>(
         disabled={disabled}
         checked={checked}
         ref={ref}
+        data-testid={aria}
       />
       {
         hint
