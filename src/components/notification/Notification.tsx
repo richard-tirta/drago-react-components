@@ -8,36 +8,35 @@ interface NotificationData {
   title: string;
   message: string;
   timer: number;
+  timeStamp: number;
 }
 
 interface NotificationProps {
   data: NotificationData[];
+  setNotification: React.Dispatch<React.SetStateAction<NotificationData[]>>;
 }
 
-const Notification = memo(({ data }: { data: NotificationData[] }) => {
-  const [notificationData, setNotificationData] = useState<NotificationData[]>(data);
+const Notification = memo(({ data, setNotification }: NotificationProps) => {
+
   const [currentNotification, setCurrentNotification] = useState<NotificationData | null>(null);
-  
-  console.log('hello', data);
+
+  console.log('notification', data);
   
   useEffect(() => {
-    if (data.length > notificationData.length) {
-      setNotificationData(data);
+    if (data.length > 0) {
+      setCurrentNotification(data[0]);
     }
   }, [data]);
  
   useEffect(() => {
     let time: NodeJS.Timeout | undefined;
 
-    console.log('hello effect', notificationData);
-
-    if (notificationData.length > 0) {
-      setCurrentNotification(notificationData[0]);
-      if (notificationData[0].timer > 0) {
+    if (currentNotification) {
+      if (currentNotification.timer > 0) {
         time = setTimeout(() => {
           setCurrentNotification(null);
-          setNotificationData((prevData) => prevData.slice(1));
-        }, notificationData[0].timer);
+          setNotification(prevData => prevData.slice(1));
+        }, currentNotification.timer);
       }
     }
 
@@ -46,21 +45,17 @@ const Notification = memo(({ data }: { data: NotificationData[] }) => {
         clearTimeout(time);
       }
     }
-  }, [notificationData]);
+  }, [currentNotification, setNotification]);
   
   const modalClickHandler = () => {
-    console.log('modal click');
     setCurrentNotification(null);
-    setNotificationData((prevData) => prevData.slice(1));
+    setNotification(prevData => prevData.slice(1));
   }
-
-  console.log('hello current notif', currentNotification);
-
 
   return (
     <>
       <Modal isModalOpen={!!currentNotification} position={'top'} onClick={modalClickHandler} withOverlay={false}>
-        <Header>{currentNotification?.title}</Header>
+        <Header>{currentNotification?.title}</Header><br/>
         <Paragraph>{currentNotification?.message}</Paragraph>
       </Modal>
     </>

@@ -14,7 +14,7 @@ interface NotificationData {
 
 const NotificationIndex = () => {
 
-  const [submittedNotifications, setSubmittedNotifications] = useState<NotificationData[]>([]);
+  const [Notifications, setNotifications] = useState<NotificationData[]>([]);
   const titleInput = useInput('text');
   const messageInput = useInput('text');
   const timerInput = useInput('number');
@@ -27,8 +27,9 @@ const NotificationIndex = () => {
       timer: +timerInput.value * 1000,
       timeStamp: Date.now(),
     };
-    setSubmittedNotifications((prevNotifications) => [...prevNotifications, newNotificationData]);
+    setNotifications((prevNotifications) => [...prevNotifications, newNotificationData]);
   }, [titleInput.value, messageInput.value, timerInput.value]);
+
 
   return (
     <>
@@ -65,7 +66,7 @@ const NotificationIndex = () => {
         />
         <Button onClick={() => { }}>Submit</Button>
       </form>
-      <Notification data={submittedNotifications} />
+      <Notification data={Notifications} setNotification={setNotifications} />
     </>
   )
 }
