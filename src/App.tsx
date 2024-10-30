@@ -13,6 +13,7 @@ import ConsentIndex from './components/consent/ConsentIndex';
 import DrawerIndex from './components/drawer/DrawerIndex';
 import ProductGalleryIndex from './components/product-gallery/ProductGalleryIndex';
 import SearchIndex from './components/search/SearchIndex';
+import NotificationIndex from './components/notification/NotificationIndex';
 
 function App() {
 
@@ -71,6 +72,9 @@ function App() {
           <li>
             <Button onClick={() => handleNavigation('/search')}>Search</Button>
           </li>
+          <li>
+            <Button onClick={() => handleNavigation('/notification')}>Notification</Button>
+          </li>
         </ul>
       </nav>
       <Routes>
@@ -83,6 +87,7 @@ function App() {
         <Route path="/drawer" element={<DrawerIndex />} />
         <Route path="/products" element={<ProductGalleryIndex />} />
         <Route path="/search" element={<SearchIndex />} />
+        <Route path="/notification" element={<NotificationIndex />} />
       </Routes>  
     </>
   )

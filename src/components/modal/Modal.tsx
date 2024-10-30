@@ -52,6 +52,7 @@ const Modal: FC<ModalProps> = ({
     styles[position],
     styles[size],
     styles[isShown ? 'visible' : ''],
+    styles[withOverlay ? 'with_overlay' : 'without_overlay'],
   ].join(' ');
 
   const handleOverlayClick = useCallback(

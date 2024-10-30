@@ -4,18 +4,18 @@
   --primary-color: rgb(230, 230, 230);
   --background-color: rgb(23, 23, 23);
   --color-blue: rgb(67, 56, 202);
-  --color-gray: #E5E5E5;
+  --color-gray: #e5e5e5;
   --secondary-hover: rgb(23, 23, 23);
-  --disabled: rgb(40,40,40);
+  --disabled: rgb(40, 40, 40);
 }
 
 [data-theme="light"] {
   --primary-color: rgb(23, 23, 23);
   --background-color: rgb(230, 230, 230);
   --color-blue: rgb(67, 56, 202);
-  --color-gray: #E5E5E5;
-  --secondary-hover: #FAFAFA;
-  --disabled: #F5F5F5;
+  --color-gray: #e5e5e5;
+  --secondary-hover: #fafafa;
+  --disabled: #f5f5f5;
 }
 
 $color_blue: rgb(67, 56, 202);
@@ -24,29 +24,41 @@ $color_gray: rgb(230, 230, 230);
 $color_black: rgb(23, 23, 23);
 
 @mixin xlarge {
-	@media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 
 @mixin large {
-	@media (min-width: 1000px) { @content; }
+  @media (min-width: 1000px) {
+    @content;
+  }
 }
 
 @mixin medium {
-	@media (min-width: 700px) { @content; }
+  @media (min-width: 700px) {
+    @content;
+  }
 }
 
 //default is small
 
 @mixin xsmall {
-	@media (max-width: 500px) { @content; }
+  @media (max-width: 500px) {
+    @content;
+  }
 }
 
 @mixin short {
-	@media (max-height: 500px) { @content; }
+  @media (max-height: 500px) {
+    @content;
+  }
 }
 
 @mixin xshort {
-	@media (max-height: 400px) { @content; }
+  @media (max-height: 400px) {
+    @content;
+  }
 }
 
 dialog {
@@ -114,35 +126,61 @@ dialog {
   &.center {
     border-radius: 8px;
   }
+  &.without_overlay {
+    position: fixed;
+  }
   &.top {
     border-radius: 0 0 8px 8px;
+    &.without_overlay {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
   }
   &.bottom {
     border-radius: 8px 8px 0 0;
+    &.without_overlay {
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
   }
   &.left {
     border-radius: 0 8px 8px 0;
+    &.without_overlay {
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+    }
   }
   &.right {
     border-radius: 8px 0 0 8px;
+    &.without_overlay {
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%);
+    }
   }
   @include medium {
     min-width: 150px;
     &.small {
       width: 22vw;
-      &.left, &.right {
+      &.left,
+      &.right {
         max-width: 8vw;
       }
     }
     &.medium {
       width: 50vw;
-      &.left, &.right {
+      &.left,
+      &.right {
         max-width: 10vw;
       }
     }
     &.large {
       width: 80vw;
-      &.left, &.right {
+      &.left,
+      &.right {
         max-width: 15vw;
       }
     }
