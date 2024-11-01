@@ -49,11 +49,18 @@ const SubDrawer: FC<SubDrawerProps> = ({
     }
   }, [expandAll]);
 
-  const handleToggle = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => { 
-    e.preventDefault();
-    setOpen((prevOpen) => !prevOpen); // Only toggle the local state
-    updateSubDrawerState(id, open);
-  }, []);
+  const handleToggle = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      setOpen((prevOpen) => {
+        const newOpen = !prevOpen;
+        // Use a timeout of 0 to defer context update until after render
+        setTimeout(() => updateSubDrawerState(id, newOpen), 0);
+        return newOpen;
+      });
+    },
+    []
+  );
 
   return (
     <>

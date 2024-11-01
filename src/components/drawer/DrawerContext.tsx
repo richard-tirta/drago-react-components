@@ -26,11 +26,17 @@ export const DrawerProvider: FC<DrawerProviderProps> = ({ children }) => {
   const [subDrawerStates, setSubDrawerStates] = useState<{ [key: string]: boolean }>({});
 
   const updateSubDrawerState = (id: string, isOpen: boolean) => { 
+    //console.log('updateSubDrawerState', id, isOpen);
     setSubDrawerStates((prevState) => {
       const newState = { ...prevState, [id]: isOpen };
-      const allClosed = Object.values(newState).every((isOpen) => !isOpen);
-      if (allClosed) {
+
+      const someClosed = Object.values(newState).some((isOpen) => !isOpen);
+      const allOpen = Object.values(newState).every((isOpen) => isOpen);
+      
+      if (someClosed) {
         setExpandAll(false);
+      } else if (allOpen) {
+        setExpandAll(true);
       }
       return newState;
     });
