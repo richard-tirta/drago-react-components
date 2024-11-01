@@ -12,7 +12,7 @@ const HomeIndex = () => {
             To create a reusable components for Richard's future project since he found himself kept remaking components from scratch. Preventing him to build on bigger more complex projects.
           </li>
           <li>
-            For him to learn how to use and practice better React.
+            Yes, there's MUI. But this is for him to learn how to use and practice better React.
           </li>
           <li>
             To simulate the kind of works he did at his job at Meta. In Meta he would create a reusable component for the in-house CMS system.

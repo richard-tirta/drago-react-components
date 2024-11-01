@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import dragoLogo from './assets/drago.svg'
 import './App.css'
 import HomeIndex from './components/home/HomeIndex';
+import Pages from './pages/PagesHome/Pages';
 import Button from './components/button/Button'
 import ButtonIndex from './components/button/ButtonIndex';
 import InputIndex from './components/form/InputIndex';
@@ -49,6 +50,9 @@ function App() {
         </ul>
         <ul className="main_nav">
           <li>
+            <Button onClick={() => handleNavigation('/pages')}>Pages</Button>
+          </li>
+          <li>
             <Button onClick={() => handleNavigation('/buttons')}>Buttons</Button>
           </li>
           <li>
@@ -79,6 +83,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<HomeIndex />} />
+        <Route path="/pages" element={<Pages />} />
         <Route path="/buttons" element={<ButtonIndex />} />
         <Route path="/inputs" element={<InputIndex />} />
         <Route path="/forms" element={<FormIndex />} />
