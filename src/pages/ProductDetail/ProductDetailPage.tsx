@@ -99,7 +99,7 @@ const ProductDetailPage = ({ productId = "autumnal-knitwear" }) => {
                     <p>{currentProduct?.description}</p>
                     <div>
                         <p>Available colors</p>
-                        <ul>
+                        <ul className={styles.item_list}>
                             {colors.map((color, index) => (
                                 <li key={index}>
                                     {capitalizeFirstLetter(color)}
@@ -109,7 +109,7 @@ const ProductDetailPage = ({ productId = "autumnal-knitwear" }) => {
                     </div>
                     <div>
                         <p>Available sizes</p>
-                        <ul>
+                        <ul className={styles.item_list}>
                             {sizes.map((size, index) => (
                                 <li key={index}>
                                     {size.toUpperCase()}

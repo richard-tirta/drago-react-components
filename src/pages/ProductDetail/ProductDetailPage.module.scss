@@ -25,20 +25,25 @@ $color_black: rgb(23, 23, 23);
 
 .product_detail {
   display: flex;
+  align-items: flex-start;
   gap: 4vw;
   margin: 0 0 1rem 0;
   .product_gallery {
-    width: 45vw;
+    width: 25vw;
   }
   .product_description {
-    background-color: #cccccc;
     display: block;
     align-items: center;
     justify-content: center;
     width: 50vw;
     min-height: 40vh;
-    padding: 2vw;
+    padding: 0 2vw 2vw 2vw;
     text-align: left;
+  }
+  .item_list {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
   }
 }
 
