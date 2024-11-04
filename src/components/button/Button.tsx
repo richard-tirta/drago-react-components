@@ -8,9 +8,13 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'x2large';
   icon?: 'left' | 'right' | 'both' | 'only' | 'none';
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   children: React.ReactNode;
   aria?: string;
+  customClassName?: string;
+  customBackgroundColor?: string;
+  customBorderColor?: string;
+  customColor?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -21,6 +25,10 @@ const Button: FC<ButtonProps> = ({
   onClick,
   children,
   aria,
+  customClassName,
+  customBorderColor,
+  customBackgroundColor,
+  customColor,
 }) => {
 
   const classNames = [
@@ -28,7 +36,14 @@ const Button: FC<ButtonProps> = ({
     styles[type],
     styles[size],
     disabled ? styles.disabled : '',
+    customClassName
   ].join(' ');
+
+  const customStyle = {
+    ...(customBackgroundColor && { backgroundColor: customBackgroundColor }),
+    ...(customColor && { color: customColor }),
+    ...(customBorderColor && { border: `1px solid ${customBorderColor}` }),
+  }
 
   return (
     <button
@@ -37,6 +52,7 @@ const Button: FC<ButtonProps> = ({
       onClick={!disabled ? onClick : undefined}
       aria-label={aria}
       data-testid={aria}
+      style={customStyle}
     >
       {icon === 'left' || icon === 'both'
         ? <svg
